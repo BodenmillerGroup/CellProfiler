@@ -989,3 +989,16 @@ def test_volume_masked(measurements, module, objects, volume, workspace):
             actual,
             err_msg="{} expected {}, got {}".format(feature, value, actual)
         )
+
+
+def test_missing_label(image, measurements, module, objects, workspace):
+    """Check measurements on a 3x3 square of 1's"""
+    data = numpy.array([[0, 0, 0, 0, 0, 0, 0],
+                       [0, 0, 2, 2, 2, 0, 0],
+                       [0, 0, 2, 2, 2, 0, 0],
+                       [0, 0, 2, 2, 2, 0, 0],
+                       [0, 0, 0, 0, 0, 0, 0]])
+
+    image.pixel_data = data.astype(float)
+    objects.segmented = data.astype(int)
+    module.run(workspace)
