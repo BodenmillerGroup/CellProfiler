@@ -9,15 +9,17 @@ cache:
   directories: $HOME/.cache/pip
 dist: trusty
 env:
-  - LC_ALL="en_US.UTF-8" CP_MYSQL_TEST_HOST="127.0.0.1" CP_MYSQL_TEST_USER="root" CP_MYSQL_TEST_PASSWORD=""
-group: deprecated-2017Q2
+  global:
+    - LC_ALL="en_US.UTF-8" CP_MYSQL_TEST_HOST="127.0.0.1" CP_MYSQL_TEST_USER="root" CP_MYSQL_TEST_PASSWORD=""
+  matrix:
+    - REQUIREMENTS_FILE="pinned_requirements.txt"
+    - REQUIREMENTS_FILE="requirements.txt"
+matrix:
+  allow_failures:
+    - env: REQUIREMENTS_FILE="requirements.txt"
 install:
-  - pip install --upgrade pip
-  - pip install --upgrade cython
-  - pip install --upgrade joblib
-  - pip install --upgrade numpy
-  - pip install --upgrade scipy
-  - pip install --upgrade --editable .[test]
+  - pip install -r $REQUIREMENTS_FILE
+  - pip install .[test]
   - pip freeze
 language: python
 notifications:
