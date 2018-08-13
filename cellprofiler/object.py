@@ -122,12 +122,16 @@ class Objects(object):
     def count(self):
         """The number of objects labeled"""
         sparse_labels = self.__segmented.sparse['label']
-        unique = numpy.unique(sparse_labels)
-        count = len(unique)
-        # Don't count the background
-        if 0 in unique:
-            count -= 1
-        return count
+        if len(sparse_labels) > 0:
+            max_lab = numpy.max(sparse_labels)
+        else:
+            max_lab = 0
+        return max_lab
+
+    @property
+    def max_label(self):
+        """The maximum label number an object has"""
+
 
     @property
     def areas(self):
