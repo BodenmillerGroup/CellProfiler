@@ -130,6 +130,16 @@ class Objects(object):
         return count
 
     @property
+    def maxlabel(self):
+        """The maximum label occuring in the objects"""
+        sparse_labels = self.__segmented.sparse['label']
+        if len(sparse_labels) > 0:
+            max_lab = numpy.max(sparse_labels)
+        else:
+            max_lab = 0
+        return max_lab
+
+    @property
     def areas(self):
         """The area of each object"""
         if len(self.indices) == 0:

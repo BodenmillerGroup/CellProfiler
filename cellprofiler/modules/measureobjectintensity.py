@@ -344,7 +344,7 @@ Select the objects whose intensities you want to measure."""))
                     image_mask = image_mask.reshape(1, *image_mask.shape)
 
                 objects = workspace.object_set.get_objects(object_name.value)
-                nobjects = objects.count
+                nobjects = objects.maxlabel
                 integrated_intensity = numpy.zeros((nobjects,))
                 integrated_intensity_edge = numpy.zeros((nobjects,))
                 mean_intensity = numpy.zeros((nobjects,))
